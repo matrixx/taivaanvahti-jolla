@@ -32,7 +32,6 @@ import Sailfish.Silica 1.0
 
 Page {
     id: raportoiPage
-    property string lomakeUrl: "https://www.taivaanvahti.fi/api:8443"
     Component.onCompleted: {
         lomakemanager.lomakeSaatavilla.connect(luoLomake)
         taivas.haeKategoriat()
@@ -42,6 +41,8 @@ Page {
         id: list
         anchors.fill: parent
         contentHeight: parent.height
+
+        ScrollDecorator { flickable: list }
 
         header: PageHeader {
             id: header

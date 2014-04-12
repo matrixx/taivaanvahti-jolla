@@ -24,7 +24,8 @@ OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/pages/Havainto.qml \
     qml/pages/Havainnot.qml \
     qml/pages/Haku.qml \
-    qml/pages/Raportoi.qml
+    qml/pages/Raportoi.qml \
+    qml/taivas.js
 
 HEADERS += \
     src/lomakemanager.h
