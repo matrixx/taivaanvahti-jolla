@@ -1,6 +1,7 @@
 #include "lomakemanager.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QDebug>
 
 LomakeManager::LomakeManager(QObject *parent) :
     QObject(parent)
@@ -22,5 +23,6 @@ void LomakeManager::lomakeVastaanotettu()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
+    qDebug() << replyString;
     emit lomakeSaatavilla(replyString);
 }

@@ -48,8 +48,8 @@ Page {
             busy: taivas.searchRunning
 
             MenuItem {
-                text: "Raportoi Ilmiö"
-                onClicked: pageStack.push("Raportoi.qml")
+                text: "Tietoja"
+                onClicked: pageStack.push("Tietoja.qml")
             }
 
             MenuItem {
@@ -58,8 +58,8 @@ Page {
             }
 
             MenuItem {
-                text: "Tietoja"
-                onClicked: pageStack.push("Tietoja.qml")
+                text: "Raportoi Havainto"
+                onClicked: pageStack.push("Raportoi.qml")
             }
 
             MenuItem {

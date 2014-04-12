@@ -32,8 +32,9 @@ import Sailfish.Silica 1.0
 
 Page {
     id: raportoiPage
+    property string category: ""
     Component.onCompleted: {
-        lomakemanager.lomakeSaatavilla.connect(luoLomake)
+        lomakemanager.lomakeSaatavilla.connect(luoLomakePage)
         taivas.haeKategoriat()
     }
 
@@ -66,14 +67,16 @@ Page {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    category = categorySelect.text
                     lomakemanager.haeLomake(categorySelect.categoryId)
                 }
             }
         }
     }
 
-    function luoLomake(lomake)
+    function luoLomakePage(lomake)
     {
-        console.debug(lomake);
+        pageStack.push("Lomake.qml", {category: raportoiPage.category, lomakeText: lomake})
+//        console.debug(lomake);
     }
 }
