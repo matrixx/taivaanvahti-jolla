@@ -33,7 +33,10 @@ import Sailfish.Silica 1.0
 Page {
     id: raportoiPage
     property string lomakeUrl: "https://www.taivaanvahti.fi/api:8443"
-    Component.onCompleted: taivas.haeKategoriat()
+    Component.onCompleted: {
+        lomakemanager.lomakeSaatavilla.connect(luoLomake)
+        taivas.haeKategoriat()
+    }
 
     SilicaListView {
         id: list
@@ -48,6 +51,7 @@ Page {
         model: taivas.kategoriat
 
         delegate: BackgroundItem {
+            id: bgItem
             height: categorySelect.height + 2 * Theme.paddingLarge
             Label {
                 id: categorySelect
@@ -57,27 +61,18 @@ Page {
                 enabled: true
                 property int categoryId: taivas.kategoriat.get(index).id
                 text: taivas.kategoriat.get(index).title
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        // lataaLomake(categorySelect.categoryId)
-                    }
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    lomakemanager.haeLomake(categorySelect.categoryId)
                 }
             }
         }
     }
 
-    function lataaLomake(id)
+    function luoLomake(lomake)
     {
-        var xhr = new XMLHttpRequest
-        var request = lomakeUrl
-        xhr.open("POST", request);
-        xhr.setRequestHeader("Content-type","application/json; charset=utf-8")
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.debug(xhr.responseText)
-            } // TODO: handle errors
-        }
-        xhr.send({"request": {"Action":"FormTemplateRequest","Category":"1"}});
+        console.debug(lomake);
     }
 }

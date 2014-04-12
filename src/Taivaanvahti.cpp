@@ -33,7 +33,7 @@
 #endif
 
 #include <sailfishapp.h>
-
+#include "lomakemanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -45,7 +45,12 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
     //
     // To display the view, call "show()" (will show fullscreen on device).
-
-    return SailfishApp::main(argc, argv);
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
+    view->setSource(QUrl(SailfishApp::pathTo("qml/harbour-taivaanvahti.qml")));
+    LomakeManager manager;
+    view->engine()->rootContext()->setContextProperty("lomakemanager", &manager);
+    view->show();
+    return app->exec();
 }
 

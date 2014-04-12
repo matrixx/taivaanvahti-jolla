@@ -11,7 +11,8 @@ TARGET = harbour-taivaanvahti
 CONFIG += sailfishapp
 
 SOURCES += \
-    src/Taivaanvahti.cpp
+    src/Taivaanvahti.cpp \
+    src/lomakemanager.cpp
 
 OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/cover/CoverPage.qml \
@@ -24,4 +25,7 @@ OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/pages/Havainnot.qml \
     qml/pages/Haku.qml \
     qml/pages/Raportoi.qml
+
+HEADERS += \
+    src/lomakemanager.h
 
