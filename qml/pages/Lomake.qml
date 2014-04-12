@@ -9,6 +9,7 @@ Page {
     SilicaFlickable {
         id: flick
         anchors.fill: parent
+        contentHeight: header.height + col.height + Theme.PaddingLarge
 
         Component.onCompleted: {
             var text = LomakeScript.luoLomake(lomakeText);
