@@ -48,6 +48,11 @@ Page {
             busy: taivas.searchRunning
 
             MenuItem {
+                text: "Raportoi Ilmiö"
+                onClicked: pageStack.push("Raportoi.qml")
+            }
+
+            MenuItem {
                 text: "Hakuehdot"
                 onClicked: pageStack.push("Haku.qml")
             }

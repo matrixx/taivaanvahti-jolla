@@ -41,14 +41,17 @@ ApplicationWindow
     property var havainnot: ListModel {}
     property var kommentit: ListModel {}
     property var viimeiset: ListModel {}
+    property var kategoriat: ListModel {}
 
     property bool searchRunning: false
     property bool detailedSearchRunning: false
     property bool commentSearchRunning: false
     property string searchUser: ""
     property string searchUrl: "http://www.ursa.fi/~obsbase/search_3.php?format=json"
+    property string categoriesUrl: "http://www.ursa.fi/~obsbase/categories.php?format=json"
     property string defaultColumns: "&columns=id,title,start,city,category,thumbnails,comments"
     property string detailedColumns: "&columns=user,team,description,details,link,equipment,images"
+    property string categoryColumns: "&columns=id,title"
     property string commentUrl: "http://www.ursa.fi/~obsbase/comment_search.php?format=json&order=asc"
     property int dateOffset: 5
     property var startDate: makeOffsetDate()
@@ -158,6 +161,24 @@ ApplicationWindow
         }
         xhr.send();
 
+    }
+
+    function haeKategoriat() {
+        var xhr = new XMLHttpRequest
+        var query = categoriesUrl + categoryColumns
+        xhr.open("GET", query);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                kategoriat.clear()
+                if (xhr.responseText.match("^No") != null)
+                    return
+                var results = JSON.parse(xhr.responseText)
+                for (var i in results.category) {
+                    kategoriat.append(results.category[i])
+                }
+            } // TODO: handle errors
+        }
+        xhr.send();
     }
 
 }

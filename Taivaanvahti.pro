@@ -10,17 +10,18 @@ TARGET = harbour-taivaanvahti
 
 CONFIG += sailfishapp
 
-SOURCES += src/Taivaanvahti.cpp
+SOURCES += \
+    src/Taivaanvahti.cpp
 
-OTHER_FILES += \
+OTHER_FILES += qml/harbour-taivaanvahti.qml \
+    qml/cover/CoverPage.qml \
     rpm/harbour-taivaanvahti.spec \
     rpm/harbour-taivaanvahti.yaml \
-    qml/cover/CoverPage.qml \
+    harbour-taivaanvahti.desktop \
     qml/pages/Tietoja.qml \
     qml/pages/Photos.qml \
     qml/pages/Havainto.qml \
     qml/pages/Havainnot.qml \
     qml/pages/Haku.qml \
-    qml/harbour-taivaanvahti.qml \
-    harbour-taivaanvahti.desktop \
-    harbour-taivaanvahti.png
+    qml/pages/Raportoi.qml
+
