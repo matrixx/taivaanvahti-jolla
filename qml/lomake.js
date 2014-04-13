@@ -7,55 +7,67 @@ function luoLomake(lomakeTeksti) {
 
     var teksti = JSON.parse(lomakeTeksti);
     var fields = teksti.observation.field;
+    var specifics = teksti.category.specific;
     var mandatory;
     console.debug("Lomaketta luodaan..")
     for (var i in fields) {
         item = fields[i];
-        if (item.field_type === "text") {
-            console.debug("Text type of field")
-            component = Qt.createComponent("pages/components/TekstiKentta.qml");
-            if (odotaLatausta())
-            {
-                luoRajattuObjekti()
-            }
-        } else if (fields[i].field_type === "numeric") {
-            console.debug("Numeric type of field")
-            component = Qt.createComponent("pages/components/NumeroKentta.qml");
-            if (odotaLatausta())
-            {
-                luoPerusObjekti()
-            }
-        } else if (fields[i].field_type === "select") {
-            console.debug("Select type of field")
-            component = Qt.createComponent("pages/components/SelectKentta.qml");
-            if (odotaLatausta())
-            {
-                luoMonivalintaObjekti()
-            }
-        } else if (fields[i].field_type === "time") {
-            console.debug("Time type of field")
-            component = Qt.createComponent("pages/components/AikaKentta.qml");
-            if (odotaLatausta())
-            {
-                luoPerusObjekti()
-            }
-        } else if (fields[i].field_type === "date") {
-            console.debug("Date type of field")
-            component = Qt.createComponent("pages/components/PaivamaaraKentta.qml");
-            if (odotaLatausta())
-            {
-                luoPerusObjekti()
-            }
-        } else if (fields[i].field_type === "coordinate") {
-            console.debug("Coordinate type of field")
-            component = Qt.createComponent("pages/components/KoordinaatitKentta.qml");
-            if (odotaLatausta())
-            {
-                luoPerusObjekti()
-            }
+        luoKentta();
+    }
+
+    for (var i in specifics) {
+        item = specifics[i];
+        luoKentta();
+    }
+
+    return;
+}
+
+function luoKentta()
+{
+    if (item.field_type === "text") {
+        console.debug("Text type of field")
+        component = Qt.createComponent("pages/components/TekstiKentta.qml");
+        if (odotaLatausta())
+        {
+            luoRajattuObjekti()
+        }
+    } else if (item.field_type === "numeric") {
+        console.debug("Numeric type of field")
+        component = Qt.createComponent("pages/components/NumeroKentta.qml");
+        if (odotaLatausta())
+        {
+            luoPerusObjekti()
+        }
+    } else if (item.field_type === "select") {
+        console.debug("Select type of field")
+        component = Qt.createComponent("pages/components/SelectKentta.qml");
+        if (odotaLatausta())
+        {
+            luoMonivalintaObjekti()
+        }
+    } else if (item.field_type === "time") {
+        console.debug("Time type of field")
+        component = Qt.createComponent("pages/components/AikaKentta.qml");
+        if (odotaLatausta())
+        {
+            luoPerusObjekti()
+        }
+    } else if (item.field_type === "date") {
+        console.debug("Date type of field")
+        component = Qt.createComponent("pages/components/PaivamaaraKentta.qml");
+        if (odotaLatausta())
+        {
+            luoPerusObjekti()
+        }
+    } else if (item.field_type === "coordinate") {
+        console.debug("Coordinate type of field")
+        component = Qt.createComponent("pages/components/KoordinaatitKentta.qml");
+        if (odotaLatausta())
+        {
+            luoPerusObjekti()
         }
     }
-    return;
 }
 
 function odotaLatausta()
