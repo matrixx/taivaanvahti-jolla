@@ -31,7 +31,9 @@ OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/pages/components/LomakeItem.qml \
     qml/pages/components/TekstiKentta.qml \
     qml/pages/components/NumeroKentta.qml \
-    qml/pages/components/SelectKentta.qml
+    qml/pages/components/SelectKentta.qml \
+    qml/pages/components/AikaKentta.qml \
+    qml/pages/components/PaivamaaraKentta.qml
 
 HEADERS += \
     src/lomakemanager.h

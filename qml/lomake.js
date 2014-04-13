@@ -16,27 +16,37 @@ function luoLomake(lomakeTeksti) {
             component = Qt.createComponent("pages/components/TekstiKentta.qml");
             if (odotaLatausta())
             {
-                luoTekstiKentta()
+                luoRajattuObjekti()
             }
         } else if (fields[i].field_type === "numeric") {
             console.debug("Numeric type of field")
             component = Qt.createComponent("pages/components/NumeroKentta.qml");
             if (odotaLatausta())
             {
-                luoNumeroKentta()
+                luoPerusObjekti()
             }
         } else if (fields[i].field_type === "select") {
             console.debug("Select type of field")
             component = Qt.createComponent("pages/components/SelectKentta.qml");
             if (odotaLatausta())
             {
-                luoSelectKentta()
+                luoMonivalintaObjekti()
+            }
+        } else if (fields[i].field_type === "time") {
+            console.debug("Time type of field")
+            component = Qt.createComponent("pages/components/AikaKentta.qml");
+            if (odotaLatausta())
+            {
+                luoPerusObjekti()
+            }
+        } else if (fields[i].field_type === "date") {
+            console.debug("Date type of field")
+            component = Qt.createComponent("pages/components/PaivamaaraKentta.qml");
+            if (odotaLatausta())
+            {
+                luoPerusObjekti()
             }
         }
-        /*else if (fields[i].field_type === "time") {
-            lomakeItem += luoAikaKentta(fields[i].field_label)
-        }
-        */
     }
     return;
 }
@@ -55,7 +65,7 @@ function odotaLatausta()
     return true;
 }
 
-function luoTekstiKentta()
+function luoRajattuObjekti()
 {
     var maxLength = -1;
     if (item.hasOwnProperty('field_max_length')) {
@@ -67,25 +77,17 @@ function luoTekstiKentta()
                                "maxLength": maxLength})
 }
 
-function luoNumeroKentta()
+function luoPerusObjekti()
 {
     component.createObject(col, {"fieldId": item.field_id,
                                "mandatory": (item.field_mandatory !== "0"),
                                "title": item.field_label})
 }
 
-function luoSelectKentta()
+function luoMonivalintaObjekti()
 {
     component.createObject(col, {"fieldId": item.field_id,
                                "mandatory": (item.field_mandatory !== "0"),
                                "title": item.field_label,
                                "values": item.values.value})
-}
-
-function luoAikaKentta(title)
-{
-    console.debug("creating time picker field " + title)
-    var teksti = "Label { text: \" " + title + "\" } ";
-    teksti += "TimePicker { hour: 0; minute: 0 } ";
-    return teksti;
 }
