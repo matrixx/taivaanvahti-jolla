@@ -6,12 +6,14 @@ LomakeItem {
     property real lat: 0.0
     property real lon: 0.0
     value: coord.text
+    height: coord.height + 2 * Theme.paddingLarge
     Component.onCompleted: {
         console.debug("Koordinaatitkentta: " + title + " | " + mandatory + " | " + fieldId);
     }
     Label {
         id: coord
         width: parent.width
+        anchors.verticalCenter: parent.verticalCenter
         text: title + ": " + lat + ", " + lon
     }
     PositionSource {

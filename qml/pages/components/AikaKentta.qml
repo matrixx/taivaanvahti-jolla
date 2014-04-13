@@ -2,22 +2,24 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 LomakeItem {
-    property var time: Qt.formatDateTime(new Date(), "hh:mm:ss")
+    id: masterItem
     Component.onCompleted: {
         console.debug("Aikakentta: " + title + " | " + mandatory + " | " + fieldId);
     }
-    value: Qt.formatTime(time, "hh:mm:ss");
+    value: Qt.formatDateTime(new Date(), "hh:mm:ss");
     ValueButton {
         id: button
         width: parent.width
         label: title
-        value: time
+        value: Qt.formatDateTime(new Date(), "hh:mm:ss")
 
         onClicked: {
-            var dialog = pageStack.push("Sailfish.Silica.TimePickerDialog", { time: new Date() })
+            var dialog = pageStack.push("Sailfish.Silica.TimePickerDialog")
 
             dialog.accepted.connect(function() {
-                time = Qt.formatTime(dialog.time, "hh:mm:ss")
+                console.debug("timepicker time: " + dialog.time)
+                button.value = Qt.formatTime(dialog.time, "hh:mm:ss")
+                masterItem.value = Qt.formatTime(dialog.time, "hh:mm:ss")
             })
         }
     }

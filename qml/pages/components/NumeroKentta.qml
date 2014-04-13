@@ -5,12 +5,14 @@ LomakeItem {
     Component.onCompleted: {
         console.debug("Numerokentta: " + title + " | " + mandatory + " | " + fieldId);
     }
+    value: numField.text
     Column {
         width: parent.width
         Label {
             text: title
         }
         TextField {
+            id: numField
             placeholderText: placeHolderText()
             width: parent.width
             inputMethodHints: Qt.ImhDigitsOnly

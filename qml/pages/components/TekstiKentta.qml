@@ -6,12 +6,14 @@ LomakeItem {
     Component.onCompleted: {
         console.debug("Tekstikentta: " + title + " | " + mandatory + " | " + fieldId);
     }
+    value: textField.text
     Column {
         width: parent.width
         Label {
             text: title
         }
         TextArea {
+            id: textField
             placeholderText: placeHolderText()
             width: parent.width
             wrapMode: TextEdit.WordWrap
