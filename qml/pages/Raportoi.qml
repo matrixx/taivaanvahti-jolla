@@ -33,6 +33,8 @@ import Sailfish.Silica 1.0
 Page {
     id: raportoiPage
     property string category: ""
+    property string categoryName: ""
+    property bool vainPakolliset: true
     Component.onCompleted: {
         lomakemanager.lomakeSaatavilla.connect(luoLomakePage)
         taivas.haeKategoriat()
@@ -44,6 +46,16 @@ Page {
         contentHeight: parent.height
 
         ScrollDecorator { flickable: list }
+
+        PullDownMenu {
+            id: pulley
+            busy: taivas.searchRunning
+
+            MenuItem {
+                text: (vainPakolliset ? "Hae kaikki kentät" : "Hae vain pakolliset kentät")
+                onClicked: vainPakolliset = !vainPakolliset
+            }
+        }
 
         header: PageHeader {
             id: header
@@ -62,12 +74,14 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 enabled: true
                 property int categoryId: taivas.kategoriat.get(index).id
+                property int categoryName: taivas.kategoriat.get(index).name
                 text: taivas.kategoriat.get(index).title
             }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
                     category = categorySelect.text
+                    categoryName = categorySelect.categoryName
                     lomakemanager.haeLomake(categorySelect.categoryId)
                 }
             }
@@ -76,7 +90,10 @@ Page {
 
     function luoLomakePage(lomake)
     {
-        pageStack.push("Lomake.qml", {category: raportoiPage.category, lomakeText: lomake})
+        pageStack.push("Lomake.qml", {category: raportoiPage.category,
+                           categoryName: raportoiPage.categoryName,
+                           lomakeText: lomake,
+                            vainPakolliset: raportoiPage.vainPakolliset})
 //        console.debug(lomake);
     }
 }

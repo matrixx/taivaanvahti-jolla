@@ -1,14 +1,14 @@
 var item;
 var component;
-
-function luoLomake(lomakeTeksti) {
+var mandatory = true;
+function luoLomake(lomakeTeksti, vainPakolliset) {
     var lomakeItem = "import QtQuick 2.0; import Sailfish.Silica 1.0; ";
     lomakeItem += "Column { id: content; width: parent.width; ";
-
+    mandatory = vainPakolliset;
     var teksti = JSON.parse(lomakeTeksti);
     var fields = teksti.observation.field;
     var specifics = teksti.category.specific;
-    var mandatory;
+
     console.debug("Lomaketta luodaan..")
     for (var i in fields) {
         item = fields[i];
@@ -25,6 +25,11 @@ function luoLomake(lomakeTeksti) {
 
 function luoKentta()
 {
+    if (mandatory && item.field_mandatory === "0")
+    {
+        return;
+    }
+
     if (item.field_type === "text") {
         component = Qt.createComponent("pages/components/TekstiKentta.qml");
         if (odotaLatausta())

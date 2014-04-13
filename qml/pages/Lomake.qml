@@ -5,15 +5,17 @@ import "../lomake.js" as LomakeScript
 
 Page {
     id: lomakePage
+    property string categoryName: ""
     property alias category: header.title
     property string lomakeText: ""
+    property bool vainPakolliset: true
     SilicaFlickable {
         id: flick
         anchors.fill: parent
         contentHeight: header.height + col.height + 2 * Theme.PaddingLarge + sendButton.height
 
         Component.onCompleted: {
-            LomakeScript.luoLomake(lomakeText);
+            LomakeScript.luoLomake(lomakeText, vainPakolliset);
         }
 
         ScrollDecorator { flickable: flick }
@@ -41,9 +43,10 @@ Page {
                 onClicked: {
                     for (var i in col.children)
                     {
-                        console.debug("id: " + col.children[i].fieldId)
-                        console.debug("value: " + col.children[i].value)
+                        lomakemanager.lisaaPari(col.children[i].fieldId, col.children[i].value)
                     }
+                    lomakemanager.asetaKategoria(categoryName)
+                    lomakemanager.lahetaLomake();
                 }
             }
         }
