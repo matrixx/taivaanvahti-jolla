@@ -51,8 +51,8 @@ void LomakeManager::lahetaLomake()
         outString.append("\"field_value\":\"").append(iter.value()).append("\" } } ,");
     }
     outString.append("{ \"category\":{ \"field\":{");
-    outString.append("\field_id\":\"category_id\",");
-    outString.append("\field_value\":\"").append(mKategoriaTitle).append("\" } } } ],");
+    outString.append("\"field_id\":\"category_id\",");
+    outString.append("\"field_value\":\"").append(mKategoriaTitle).append("\" } } } ],");
     outString.append("\"source\":\"Taivaanvahti-Jolla\" } }");
     qDebug() << outString;
     QNetworkReply *reply = mNam.post(request, outString.toUtf8());
@@ -72,4 +72,5 @@ void LomakeManager::lomakeLahetetty()
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
     QString replyString = QString::fromUtf8(reply->readAll());
     qDebug() << replyString;
+    emit lomakeDone();
 }

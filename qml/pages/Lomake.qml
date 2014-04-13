@@ -16,6 +16,7 @@ Page {
 
         Component.onCompleted: {
             LomakeScript.luoLomake(lomakeText, vainPakolliset);
+            lomakemanager.lomakeDone.connect(lomakeValmis)
         }
 
         ScrollDecorator { flickable: flick }
@@ -45,10 +46,19 @@ Page {
                     {
                         lomakemanager.lisaaPari(col.children[i].fieldId, col.children[i].value)
                     }
+                    lahetysLabel.text = "Lomaketta lähetetään.."
                     lomakemanager.asetaKategoria(categoryName)
                     lomakemanager.lahetaLomake();
                 }
             }
+            Label {
+                id: lahetysLabel
+                text: ""
+            }
         }
+    }
+    function lomakeValmis()
+    {
+        lahetysLabel.text = "Lomake lähetetty!"
     }
 }

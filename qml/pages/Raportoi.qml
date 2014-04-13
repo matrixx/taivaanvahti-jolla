@@ -74,7 +74,7 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 enabled: true
                 property int categoryId: taivas.kategoriat.get(index).id
-                property int categoryName: taivas.kategoriat.get(index).name
+                property string categoryName: taivas.kategoriat.get(index).name
                 text: taivas.kategoriat.get(index).title
             }
             MouseArea {

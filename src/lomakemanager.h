@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE void lahetaLomake();
 signals:
     Q_INVOKABLE void lomakeSaatavilla(const QString& replyString);
-
+    Q_INVOKABLE void lomakeDone();
 public slots:
     void lomakeVastaanotettu();
     void lomakeLahetetty();
