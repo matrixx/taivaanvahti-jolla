@@ -46,6 +46,13 @@ function luoLomake(lomakeTeksti) {
             {
                 luoPerusObjekti()
             }
+        } else if (fields[i].field_type === "coordinate") {
+            console.debug("Coordinate type of field")
+            component = Qt.createComponent("pages/components/KoordinaatitKentta.qml");
+            if (odotaLatausta())
+            {
+                luoPerusObjekti()
+            }
         }
     }
     return;

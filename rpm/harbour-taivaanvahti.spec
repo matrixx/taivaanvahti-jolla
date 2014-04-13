@@ -20,7 +20,9 @@ License:    LICENSE
 URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-taivaanvahti.yaml
+Requires:   qt5-qtdeclarative-import-positioning
 Requires:   sailfishsilica-qt5 >= 0.10.9
+BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Core)

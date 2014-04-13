@@ -33,7 +33,8 @@ OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/pages/components/NumeroKentta.qml \
     qml/pages/components/SelectKentta.qml \
     qml/pages/components/AikaKentta.qml \
-    qml/pages/components/PaivamaaraKentta.qml
+    qml/pages/components/PaivamaaraKentta.qml \
+    qml/pages/components/KoordinaatitKentta.qml
 
 HEADERS += \
     src/lomakemanager.h
