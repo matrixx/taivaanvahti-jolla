@@ -27,7 +27,11 @@ OTHER_FILES += qml/harbour-taivaanvahti.qml \
     qml/pages/Raportoi.qml \
     qml/taivas.js \
     qml/pages/Lomake.qml \
-    qml/lomake.js
+    qml/lomake.js \
+    qml/pages/components/LomakeItem.qml \
+    qml/pages/components/TekstiKentta.qml \
+    qml/pages/components/NumeroKentta.qml \
+    qml/pages/components/SelectKentta.qml
 
 HEADERS += \
     src/lomakemanager.h

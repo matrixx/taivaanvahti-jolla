@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "components"
 import "../lomake.js" as LomakeScript
 
 Page {
@@ -12,8 +13,7 @@ Page {
         contentHeight: header.height + col.height + Theme.PaddingLarge
 
         Component.onCompleted: {
-            var text = LomakeScript.luoLomake(lomakeText);
-            var object = Qt.createQmlObject(text, col, "dynaamisetKentat");
+            LomakeScript.luoLomake(lomakeText);
         }
 
         ScrollDecorator { flickable: flick }

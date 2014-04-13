@@ -1,3 +1,5 @@
+var item;
+var component;
 
 function luoLomake(lomakeTeksti) {
     var lomakeItem = "import QtQuick 2.0; import Sailfish.Silica 1.0; ";
@@ -5,44 +7,85 @@ function luoLomake(lomakeTeksti) {
 
     var teksti = JSON.parse(lomakeTeksti);
     var fields = teksti.observation.field;
+    var mandatory;
+    console.debug("Lomaketta luodaan..")
     for (var i in fields) {
-        if (fields[i].field_type === "text") {
-            var maxLength = -1;
-            var mandatory = fields[i].field_mandatory;
-            console.debug("mandatory: " + fields[i].field_mandatory);
-            if (fields[i].hasOwnProperty('field_max_length')) {
-                maxLength = fields[i].field_max_length
+        item = fields[i];
+        if (item.field_type === "text") {
+            console.debug("Text type of field")
+            component = Qt.createComponent("pages/components/TekstiKentta.qml");
+            if (odotaLatausta())
+            {
+                luoTekstiKentta()
             }
-            lomakeItem += luoTekstiKentta(fields[i].field_label, maxLength, mandatory)
+        } else if (fields[i].field_type === "numeric") {
+            console.debug("Numeric type of field")
+            component = Qt.createComponent("pages/components/NumeroKentta.qml");
+            if (odotaLatausta())
+            {
+                luoNumeroKentta()
+            }
         } else if (fields[i].field_type === "select") {
-            lomakeItem += luoSelectKentta(fields[i].field_label, fields[i].values.value)
+            console.debug("Select type of field")
+            component = Qt.createComponent("pages/components/SelectKentta.qml");
+            if (odotaLatausta())
+            {
+                luoSelectKentta()
+            }
         }
+        /*else if (fields[i].field_type === "time") {
+            lomakeItem += luoAikaKentta(fields[i].field_label)
+        }
+        */
     }
-    lomakeItem += "}";
-    console.debug(lomakeItem)
-    return lomakeItem;
+    return;
 }
 
-function luoTekstiKentta(title, maxLength, mandatory)
+function odotaLatausta()
 {
-    console.debug("creating label " + title);
+    while (component.status !== Component.Ready)
+    {
+        if (component.status === Component.Error)
+        {
+            console.debug("Component got error: " + component.errorString())
+            return false;
+        }
+        continue;
+    }
+    return true;
+}
+
+function luoTekstiKentta()
+{
+    var maxLength = -1;
+    if (item.hasOwnProperty('field_max_length')) {
+        maxLength = item.field_max_length
+    }
+    component.createObject(col, {"fieldId": item.field_id,
+                               "mandatory": (item.field_mandatory !== "0"),
+                               "title": item.field_label,
+                               "maxLength": maxLength})
+}
+
+function luoNumeroKentta()
+{
+    component.createObject(col, {"fieldId": item.field_id,
+                               "mandatory": (item.field_mandatory !== "0"),
+                               "title": item.field_label})
+}
+
+function luoSelectKentta()
+{
+    component.createObject(col, {"fieldId": item.field_id,
+                               "mandatory": (item.field_mandatory !== "0"),
+                               "title": item.field_label,
+                               "values": item.values.value})
+}
+
+function luoAikaKentta(title)
+{
+    console.debug("creating time picker field " + title)
     var teksti = "Label { text: \" " + title + "\" } ";
-    teksti += "TextField { "; //placeholderText: " + ((mandatory === "1") ? "\"pakollinen\"" : "\"vapaaehtoinen\"") + "; ";
-    teksti += "validator: RegExpValidator { regExp: /.{";
-    teksti += mandatory + "," + ((maxLength > 0) ? maxLength : "") + "}/ }";
-    teksti += "width: parent.width } ";
-    return teksti;
-}
-
-function luoSelectKentta(title, values)
-{
-    console.debug("creating select box " + title);
-    var teksti = "ComboBox { label: \" " + title + "\";";
-    teksti += " width: parent.width; menu: ContextMenu { ";
-    for (var i in values) {
-        console.debug("creating menu item: " + values[i].value_name)
-        teksti += "MenuItem { text: \"" + values[i].value_name + "\" }";
-    }
-    teksti += " } }";
+    teksti += "TimePicker { hour: 0; minute: 0 } ";
     return teksti;
 }
